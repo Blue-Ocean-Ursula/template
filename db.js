@@ -135,13 +135,13 @@ const createChat = (data) => {
 
 // PUT data -----
 
- const replaceAuth = (data) => {
+const replaceAuth = (data) => {
   console.log('I am the database, I have received PUT request:', data)
-  // console.log('data.word:', data);
-  var filter = {user: data.user};
-  var update = {definition: data.definition};
+  console.log('data.word:', data);
+  var filter = {username: data.username};
+  var update = {password: data.password};
   console.log('filter:', filter, 'update:', update);
-  return JamsAuth.updateOne(filter, update);
+  return JamsAuth.findOneAndUpdate(filter, update);
 };
 
 const replaceUser = (data) => {
