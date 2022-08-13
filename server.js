@@ -4,9 +4,9 @@ const express = require('express');
 const path =require('path');
 
 // ----- Middleware -----
+const app = express();
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "/client/dist")));
-const app = express();
 
 const {findAuth, createAuth, replaceAuth, removeAuth,
   findUser, createUser, replaceUser, removeUser,

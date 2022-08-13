@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require('bcryptjs');
 // Connection -----
 
 mongoose.connect(`mongodb://127.0.0.1:27017/jams`)
@@ -11,10 +11,42 @@ mongoose.connect(`mongodb://127.0.0.1:27017/jams`)
 const jamsAuthSchema = new mongoose.Schema(
   {
     username: String,
-    email: String,
-    password: String
+    email: {type: String, required: true},
+    password: {type: String, required: true},
   }
 );
+
+// password encryption ----
+
+jamsAuthSchema.pre('save', async function (next) {
+
+  try {
+
+  // check method of registration
+  const user = this;
+
+  if (!user.isModified('password')) next();
+
+  // generate salt
+
+  const salt = await bcrypt.genSalt(10);
+
+  // hash the password
+
+  const hashedPassword = await bcrypt.has(this.password, salt);
+
+  // replace plain text password with hashed password
+
+  this.password = hashedPassword;
+
+  } catch (error) {
+
+    return next(error);
+
+  }
+})
+
+// ----------------------
 
 const jamsUserSchema = new mongoose.Schema(
    {
@@ -24,7 +56,7 @@ const jamsUserSchema = new mongoose.Schema(
     category: Array,
     following: Array,
     followed_by: Array,
-    member_of: Array
+    member_of: Array,
     uploads: [
       {
         title: String,
@@ -51,9 +83,10 @@ const jamsBandSchema = new mongoose.Schema(
     band_name: String,
     bio: String,
     profile_img: String,
+
     genre: Array,
     followers: Array,
-    following: Array
+    following: Array,
     uploads: [
       {
         title: String,
