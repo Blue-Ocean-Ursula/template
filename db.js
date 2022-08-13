@@ -28,10 +28,15 @@ const jamsUserSchema = new mongoose.Schema(
     uploads: [
       {
         title: String,
-        description: String,
-        url: String,
-        likes: Number,
-        created_At: String
+        version_history:[
+          {
+            id: Number,
+            description: String,
+            url: String,
+            likes: Number,
+            created_At: String
+          }
+        ]
       }
     ],
     timeline: {
@@ -52,10 +57,15 @@ const jamsBandSchema = new mongoose.Schema(
     uploads: [
       {
         title: String,
-        description: String,
-        url: String,
-        likes: Number,
-        created_At: String
+        version_history:[
+          {
+            id: Number,
+            description: String,
+            url: String,
+            likes: Number,
+            created_At: String
+          }
+        ]
       }
     ],
     timeline: {
