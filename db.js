@@ -48,6 +48,18 @@ jamsAuthSchema.pre('save', async function (next) {
 
 // ----------------------
 
+// password authentication
+
+jamsAuthSchema.methods.matchPassword = async function (password) {
+  try {
+      return await bcrypt.compare(password, this.password);
+    } catch (error) {
+      throw new Error(error);
+    }
+ };
+
+// ----------------------
+
 const jamsUserSchema = new mongoose.Schema(
    {
     username: String,
@@ -63,6 +75,7 @@ const jamsUserSchema = new mongoose.Schema(
         version_history:[
           {
             id: Number,
+            version_name: String,
             description: String,
             url: String,
             likes: Number,
@@ -93,6 +106,7 @@ const jamsBandSchema = new mongoose.Schema(
         version_history:[
           {
             id: Number,
+            version_name: String,
             description: String,
             url: String,
             likes: Number,

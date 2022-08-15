@@ -13,6 +13,17 @@ const {findAuth, createAuth, replaceAuth, removeAuth,
   findBand, createBand, replaceBand, removeBand,
   findChat, createChat, replaceChat, removeChat} = require('./db.js');
 
+
+// Authentication routes
+// app.post("/auth/signup",
+// passport.authenticate('local-signup', { session: false }),
+// (req, res, next) => {
+// // sign up
+// res.json({
+// user: req.user,
+// });
+// })
+
 // Authentication -----
 
 app.get('/auth', (req, res) => {
